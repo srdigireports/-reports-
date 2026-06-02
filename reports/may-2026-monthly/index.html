@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monthly Organic Revenue & AI Visibility Report — May 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#0b1020;--bg-2:#121933;--ink:#0b1020;--paper:#fafaf7;
+  --muted:#64748b;--line:#e6e8ef;--card:#ffffff;--accent:#6366f1;
+  --good:#059669;--good-soft:#d1fae5;--warn:#b45309;--warn-soft:#fef3c7;
+  --bad:#be123c;--bad-soft:#ffe4e6;--flat:#64748b;--flat-soft:#f1f5f9;
+  --c-shelborne:#0891b2;--c-proper:#7c3aed;--c-hotel-june:#2e5bff;--c-avalon:#dc2626;
+  --shadow-sm:0 1px 2px rgba(11,16,32,.05);
+  --shadow-md:0 4px 16px rgba(11,16,32,.06),0 1px 3px rgba(11,16,32,.04);
+  --shadow-lg:0 20px 40px rgba(11,16,32,.10),0 4px 12px rgba(11,16,32,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;font-weight:400}
+
+/* HERO */
+.hero{
+  background:radial-gradient(1200px 600px at 90% -10%,rgba(124,58,237,.35),transparent 50%),
+    radial-gradient(1000px 500px at 10% 110%,rgba(8,145,178,.28),transparent 50%),
+    linear-gradient(135deg,#0b1020 0%,#121933 50%,#1a2347 100%);
+  color:#fff;padding:64px 48px 80px;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:48px 48px;mask-image:linear-gradient(180deg,rgba(0,0,0,.6),transparent 70%);pointer-events:none;
+}
+.hero-inner{max-width:1280px;margin:0 auto;position:relative;z-index:1}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.7);font-weight:500;margin-bottom:18px}
+.eyebrow::before{content:"";width:24px;height:1px;background:rgba(255,255,255,.4)}
+h1.title{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(36px,5.2vw,60px);letter-spacing:-.02em;line-height:1.05;margin-bottom:16px;font-variation-settings:"opsz" 144}
+h1.title em{font-style:italic;font-weight:400;color:#c7d2fe}
+.hero-sub{font-size:18px;color:rgba(255,255,255,.75);max-width:720px;margin-bottom:28px;font-weight:300}
+.period-chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:40px}
+.period-chip{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:999px;font-size:13px;color:rgba(255,255,255,.9);backdrop-filter:blur(10px);font-weight:500}
+.period-chip .dot{width:6px;height:6px;border-radius:50%;background:#86efac}
+.period-chip.yoy .dot{background:#fcd34d}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.kpi{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:22px 24px;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.kpi::after{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent)}
+.kpi-label{font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.55);font-weight:500;margin-bottom:10px}
+.kpi-value{font-family:'Fraunces',serif;font-weight:500;font-size:32px;letter-spacing:-.01em;line-height:1;margin-bottom:8px}
+.kpi-sub{font-size:13px;color:rgba(255,255,255,.65)}
+
+/* MAIN */
+.container{max-width:1280px;margin:0 auto;padding:48px 48px 80px}
+.section-head{margin-bottom:28px}
+.section-kicker{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:8px}
+.section-title{font-family:'Fraunces',serif;font-weight:500;font-size:34px;letter-spacing:-.02em;font-variation-settings:"opsz" 144}
+
+/* EXEC SUMMARY */
+.exec-summary{background:var(--card);border-radius:20px;padding:40px;box-shadow:var(--shadow-md);border:1px solid var(--line);margin-bottom:40px;position:relative}
+.exec-summary::before{content:"";position:absolute;top:0;left:40px;right:40px;height:2px;background:linear-gradient(90deg,var(--c-shelborne),var(--c-proper),var(--c-hotel-june),var(--c-avalon));border-radius:2px 2px 0 0}
+.exec-summary h3{font-family:'Fraunces',serif;font-weight:500;font-size:22px;margin-bottom:18px;letter-spacing:-.01em}
+.exec-summary p{font-size:15.5px;color:#334155;margin-bottom:14px;line-height:1.7}
+.exec-summary p:last-child{margin-bottom:0}
+.exec-summary strong{color:var(--ink);font-weight:600}
+
+/* FILTER BAR */
+.filter-bar{display:flex;flex-wrap:wrap;gap:8px;padding:16px;border:1px solid var(--line);border-radius:14px;margin-bottom:32px;box-shadow:var(--shadow-sm);position:sticky;top:16px;z-index:50;backdrop-filter:blur(12px);background:rgba(255,255,255,.92)}
+.filter-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;font-size:13px;font-weight:500;background:#f8fafc;border:1px solid var(--line);border-radius:999px;cursor:pointer;transition:all .2s ease;font-family:inherit;color:#475569}
+.filter-pill .brand-dot{width:7px;height:7px;border-radius:50%}
+.filter-pill:hover{background:#f1f5f9;border-color:#cbd5e1}
+.filter-pill.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* PORTFOLIO CHART */
+.portfolio-chart{background:var(--card);border-radius:20px;padding:32px;border:1px solid var(--line);box-shadow:var(--shadow-md);margin-bottom:48px}
+.chart-title{font-family:'Fraunces',serif;font-weight:500;font-size:20px;margin-bottom:6px;letter-spacing:-.01em}
+.chart-sub{color:var(--muted);font-size:13px;margin-bottom:24px}
+.chart-canvas-wrap{position:relative;height:380px}
+
+/* PROPERTY CARDS */
+.property-grid{display:flex;flex-direction:column;gap:24px}
+.prop-card{background:var(--card);border-radius:20px;border:1px solid var(--line);overflow:hidden;box-shadow:var(--shadow-md);transition:opacity .3s ease}
+.prop-card.hidden{display:none}
+.prop-card[data-brand="shelborne"]{--brand:var(--c-shelborne)}
+.prop-card[data-brand="proper"]{--brand:var(--c-proper)}
+.prop-card[data-brand="hotel-june"]{--brand:var(--c-hotel-june)}
+.prop-card[data-brand="avalon"]{--brand:var(--c-avalon)}
+.prop-header{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 32px;cursor:pointer;border-bottom:1px solid transparent;transition:background .2s ease;position:relative}
+.prop-header:hover{background:#fafbfd}
+.prop-header.open{border-bottom-color:var(--line)}
+.prop-header::before{content:"";position:absolute;left:0;top:16px;bottom:16px;width:3px;background:var(--brand);border-radius:0 3px 3px 0}
+.prop-header-left{display:flex;align-items:center;gap:18px;flex:1;min-width:0}
+.prop-logo{width:84px;height:56px;object-fit:contain;background:#f8fafc;border-radius:8px;padding:6px;flex-shrink:0;border:1px solid var(--line)}
+.prop-name{flex:1;min-width:0}
+.prop-name h2{font-family:'Fraunces',serif;font-weight:500;font-size:22px;letter-spacing:-.01em;line-height:1.2;margin-bottom:4px}
+.prop-sub{font-size:12px;color:var(--muted);font-weight:500;letter-spacing:.05em;text-transform:uppercase}
+.prop-header-right{display:flex;align-items:center;gap:14px;flex-shrink:0}
+.mini-stat{text-align:right;padding-right:14px;border-right:1px solid var(--line)}
+.mini-stat:last-of-type{border-right:none;padding-right:0}
+.mini-stat-val{font-family:'Fraunces',serif;font-weight:500;font-size:16px;line-height:1.1;margin-bottom:2px}
+.mini-stat-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.chevron{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#f1f5f9;transition:transform .3s ease}
+.prop-header.open .chevron{transform:rotate(180deg)}
+.prop-body{display:none;padding:0}
+.prop-header.open + .prop-body{display:block}
+
+/* TABS */
+.tabs{display:flex;gap:4px;padding:16px 32px 0;border-bottom:1px solid var(--line)}
+.tab{padding:10px 18px;font-size:13px;font-weight:500;color:var(--muted);background:transparent;border:none;cursor:pointer;border-radius:8px 8px 0 0;font-family:inherit;position:relative;transition:all .2s ease}
+.tab:hover{color:var(--ink);background:#f8fafc}
+.tab.active{color:var(--brand);font-weight:600}
+.tab.active::after{content:"";position:absolute;left:12px;right:12px;bottom:-1px;height:2px;background:var(--brand);border-radius:2px 2px 0 0}
+.tab-panel{display:none;padding:28px 32px 32px}
+.tab-panel.active{display:block}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+@media(max-width:900px){.two-col{grid-template-columns:1fr}}
+
+/* TABLE */
+.cmp-table{width:100%;border-collapse:separate;border-spacing:0;font-size:13.5px}
+.cmp-table th{text-align:left;padding:10px 12px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;border-bottom:1px solid var(--line)}
+.cmp-table th:not(:first-child){text-align:right}
+.cmp-table td{padding:14px 12px;border-bottom:1px solid #f1f5f9;vertical-align:middle}
+.cmp-table td:not(:first-child){text-align:right;font-variant-numeric:tabular-nums}
+.cmp-table tr:last-child td{border-bottom:none}
+.seg-badge{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:600;letter-spacing:.04em}
+.seg-badge.all{background:#eef2ff;color:#4338ca}
+.seg-badge.organic{background:#ecfeff;color:#0e7490}
+.cell-main{font-weight:600;font-size:14.5px;color:var(--ink)}
+.cell-delta{font-size:11.5px;font-weight:600;margin-top:2px}
+.cell-delta.up{color:var(--good)}
+.cell-delta.down{color:var(--bad)}
+.cell-delta.flat{color:var(--flat)}
+
+/* MINI CHART */
+.chart-block{background:#fafbfd;border:1px solid var(--line);border-radius:14px;padding:20px}
+.chart-block-title{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:16px}
+.chart-block canvas{max-height:240px}
+
+/* SCREENSHOT */
+.screenshot{margin-top:20px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#f8fafc;cursor:zoom-in;transition:transform .2s ease}
+.screenshot:hover{transform:scale(1.005)}
+.screenshot img{width:100%;height:auto;display:block}
+.screenshot-label{font-size:11px;color:var(--muted);padding:8px 14px;background:#f8fafc;border-bottom:1px solid var(--line);letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+
+/* AI TILES */
+.ai-tile-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+@media(max-width:700px){.ai-tile-grid{grid-template-columns:repeat(2,1fr)}}
+.ai-tile{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 18px;position:relative;overflow:hidden}
+.ai-tile::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--brand);opacity:.6}
+.ai-tile-label{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:10px}
+.ai-tile-value{font-family:'Fraunces',serif;font-weight:500;font-size:32px;letter-spacing:-.01em;line-height:1;margin-bottom:8px}
+.ai-tile-delta{display:inline-flex;align-items:center;gap:3px;font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:999px;letter-spacing:.02em}
+.ai-tile-delta.up{background:var(--good-soft);color:var(--good)}
+.ai-tile-delta.down{background:var(--bad-soft);color:var(--bad)}
+.ai-tile-delta.flat{background:var(--flat-soft);color:var(--flat)}
+
+/* INSIGHT */
+.insight{margin-top:24px;padding:18px 22px;background:linear-gradient(135deg,rgba(255,255,255,0) 0%,rgba(99,102,241,.04) 100%);border-left:3px solid var(--brand);border-radius:0 12px 12px 0;font-size:14px;color:#334155;line-height:1.65}
+.insight .insight-label{font-family:'Fraunces',serif;font-weight:600;color:var(--ink);display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.insight .insight-label::before{content:"✦  ";color:var(--brand)}
+.insight strong{font-weight:600;color:var(--ink)}
+
+/* AI SNAPSHOT */
+.ai-snapshot{background:linear-gradient(135deg,#0b1020 0%,#1a2347 100%);border-radius:24px;padding:40px;color:#fff;margin:56px 0;position:relative;overflow:hidden}
+.ai-snapshot::before{content:"";position:absolute;top:-50%;right:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(124,58,237,.3),transparent 70%);pointer-events:none}
+.ai-snapshot .section-kicker{color:rgba(255,255,255,.6)}
+.ai-snapshot .section-title{color:#fff;margin-bottom:24px}
+.ai-snapshot-chart-wrap{position:relative;height:320px;background:rgba(255,255,255,.04);border-radius:16px;padding:20px;border:1px solid rgba(255,255,255,.08)}
+
+/* ROADMAP */
+.roadmap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:20px}
+@media(max-width:900px){.roadmap-grid{grid-template-columns:1fr}}
+.roadmap-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px;box-shadow:var(--shadow-sm)}
+.roadmap-icon{font-size:22px;width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.roadmap-card.cro .roadmap-icon{background:#ecfeff;color:#0e7490}
+.roadmap-card.ai .roadmap-icon{background:#f3e8ff;color:#7c3aed}
+.roadmap-card.rev .roadmap-icon{background:#ecfdf5;color:#059669}
+.roadmap-card h4{font-family:'Fraunces',serif;font-weight:500;font-size:18px;margin-bottom:12px;letter-spacing:-.005em}
+.roadmap-card ul{list-style:none;padding:0}
+.roadmap-card li{font-size:13.5px;color:#475569;padding:8px 0;padding-left:18px;position:relative;line-height:1.5;border-bottom:1px dashed #e2e8f0}
+.roadmap-card li:last-child{border-bottom:none}
+.roadmap-card li::before{content:"→";position:absolute;left:0;top:8px;color:var(--accent);font-weight:700}
+
+/* FOOTER */
+.footer{padding:40px 48px;text-align:center;border-top:1px solid var(--line);margin-top:56px;font-size:13px;color:var(--muted)}
+.footer strong{color:var(--ink)}
+.footer-brand{font-family:'Fraunces',serif;font-size:16px;font-weight:500;color:var(--ink);margin-bottom:8px;letter-spacing:-.005em}
+
+/* LIGHTBOX */
+.lightbox{position:fixed;inset:0;background:rgba(11,16,32,.92);display:none;align-items:center;justify-content:center;z-index:9999;padding:20px;cursor:zoom-out;backdrop-filter:blur(8px)}
+.lightbox.open{display:flex}
+.lightbox img{max-width:100%;max-height:100%;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .hero{padding:48px 24px 56px}
+  .container{padding:32px 20px 60px}
+  .prop-header{padding:16px 20px;flex-wrap:wrap}
+  .prop-header-right{width:100%;justify-content:flex-start;padding-top:10px;border-top:1px dashed var(--line)}
+  .tabs{padding:12px 16px 0;overflow-x:auto;flex-wrap:nowrap}
+  .tab-panel{padding:20px 16px 24px}
+  .exec-summary{padding:28px 22px}
+  .ai-snapshot{padding:28px 22px}
+}
+
+/* ANIMATIONS */
+@keyframes fadeInUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.prop-card{animation:fadeInUp .4s ease both}
+.prop-card:nth-child(1){animation-delay:.05s}.prop-card:nth-child(2){animation-delay:.10s}
+.prop-card:nth-child(3){animation-delay:.15s}.prop-card:nth-child(4){animation-delay:.20s}
+.prop-card:nth-child(5){animation-delay:.25s}.prop-card:nth-child(6){animation-delay:.30s}
+.prop-card:nth-child(7){animation-delay:.35s}.prop-card:nth-child(8){animation-delay:.40s}
+.prop-card:nth-child(9){animation-delay:.45s}.prop-card:nth-child(10){animation-delay:.50s}
+.prop-card:nth-child(11){animation-delay:.55s}.prop-card:nth-child(12){animation-delay:.60s}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">SR Digi · Portfolio Report</div>
+    <h1 class="title">Monthly Organic Revenue <em>&amp; AI Visibility</em> Report</h1>
+    <p class="hero-sub">A consolidated view of organic performance across the hospitality portfolio for May 2026 — covering Month-over-Month and Year-over-Year movement alongside generative AI search positioning.</p>
+    <div class="period-chips">
+      <span class="period-chip"><span class="dot"></span>Reporting Period · May 2026</span>
+      <span class="period-chip"><span class="dot"></span>MoM · April → May 2026</span>
+      <span class="period-chip yoy"><span class="dot"></span>YoY · May 2025 → May 2026</span>
+      <span class="period-chip"><span class="dot"></span>11 Properties · 4 Brands</span>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-label">Portfolio Organic Revenue</div>
+        <div class="kpi-value">$951K</div>
+        <div class="kpi-sub">May 2026 · across 9 properties</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Organic Sessions</div>
+        <div class="kpi-value">106,446</div>
+        <div class="kpi-sub">across the portfolio</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Organic Purchases</div>
+        <div class="kpi-value">721</div>
+        <div class="kpi-sub">May 2026 total</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Avg AI Visibility</div>
+        <div class="kpi-value">34.2%</div>
+        <div class="kpi-sub">Peec.ai · 9 tracked properties</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main class="container">
+
+  <!-- Executive Summary -->
+  <div class="section-head">
+    <div class="section-kicker">01 · The Month in Focus</div>
+    <div class="section-title">Executive Summary</div>
+  </div>
+
+  <div class="exec-summary">
+    <h3>AI visibility surging — the groundwork is paying off</h3>
+    <p>May 2026 was a month of strong directional signals. <strong>All-channel revenue grew across virtually every property</strong> — Hotel June Malibu posted a standout +83.25% all-channel MoM revenue surge, Hotel June (portfolio) climbed +43.4% MoM, Santa Monica Proper delivered +16.41% MoM, and DTLA Proper's all-channel revenue nearly doubled YoY (+92.4%). The Proper Hotels portfolio all-users revenue crossed <strong>$2.38M in May</strong>, up +11.91% from April and +39.87% vs May 2025.</p>
+    <p>On the organic layer, <strong>six of nine tracked properties grew organic sessions MoM</strong> — led by SMP (+21.14%), HJM (+30.26%), APS (+9.29%), HJWL (+13.01%), DTLP (+9.64%), and AUP (+4.41%). DTLA Proper and Avalon Palm Springs both turned in meaningful organic revenue gains MoM (+13.18% and +39.94% respectively). Where organic revenue softened, it did so against strong April baselines and a category-wide AI search transition that is structurally redistributing first-click intent — the leading indicators tell a more optimistic story.</p>
+    <p><strong>The biggest May story is AI visibility.</strong> Gains this month were portfolio-wide and substantial: Austin Proper surged <strong>+11.5pp to 52% visibility</strong>, SF Proper climbed <strong>+9.5pp to 45%</strong>, Santa Monica Proper hit <strong>+7.2pp to 64%</strong>, and DTLA Proper gained <strong>+6.3pp to 30%</strong>. SOV gains are tracking even faster, with AUP at 53% (+13.1pp). These are leading indicators — AI visibility gains at this pace typically translate to organic session recovery within 60–90 days as generative citations compound into direct navigational and branded search lifts.</p>
+  </div>
+
+  <!-- Filter Bar -->
+  <div class="filter-bar" id="filterBar">
+    <button class="filter-pill active" data-filter="all">All Properties</button>
+    <button class="filter-pill" data-filter="shelborne"><span class="brand-dot" style="background:var(--c-shelborne)"></span>Shelborne</button>
+    <button class="filter-pill" data-filter="proper"><span class="brand-dot" style="background:var(--c-proper)"></span>Proper</button>
+    <button class="filter-pill" data-filter="hotel-june"><span class="brand-dot" style="background:var(--c-hotel-june)"></span>Hotel June</button>
+    <button class="filter-pill" data-filter="avalon"><span class="brand-dot" style="background:var(--c-avalon)"></span>Avalon</button>
+  </div>
+
+  <!-- Portfolio Chart -->
+  <div class="portfolio-chart">
+    <div class="chart-title">Organic Revenue — April 2026 vs May 2026</div>
+    <div class="chart-sub">Month-over-Month comparison across all tracked leaf properties</div>
+    <div class="chart-canvas-wrap"><canvas id="portfolioChart"></canvas></div>
+  </div>
+
+  <!-- Property Cards -->
+  <div class="section-head">
+    <div class="section-kicker">02 · Property Deep Dives</div>
+    <div class="section-title">Per-Property Performance</div>
+  </div>
+
+  <div class="property-grid" id="propertyGrid"></div>
+
+  <!-- AI Snapshot -->
+  <div class="ai-snapshot">
+    <div class="section-kicker">03 · Generative Search Positioning</div>
+    <div class="section-title">AI Visibility Snapshot</div>
+    <p style="color:rgba(255,255,255,.7);font-size:15px;max-width:760px;margin-bottom:28px">
+      How each property is showing up across LLM answers tracked via Peec.ai. May 2026 saw the strongest month of AI visibility gains portfolio-wide — a direct result of schema, content, and prompt optimisation work in progress.
+    </p>
+    <div class="ai-snapshot-chart-wrap"><canvas id="aiChart"></canvas></div>
+  </div>
+
+  <!-- Roadmap -->
+  <div class="section-head">
+    <div class="section-kicker">04 · What's Next</div>
+    <div class="section-title">Forward-Looking Roadmap</div>
+  </div>
+
+  <div class="roadmap-grid">
+    <div class="roadmap-card cro">
+      <div class="roadmap-icon">◆</div>
+      <h4>SEO &amp; CRO Initiatives</h4>
+      <ul>
+        <li>Roll CRO treatment from SMP to remaining Proper sub-properties — AUP, DTLP, SFP next in pipeline</li>
+        <li>Schema cleanup continued — room pages, offers, amenities, BreadcrumbList across portfolio</li>
+        <li>Core Web Vitals &amp; LCP optimisation on high-intent booking paths</li>
+        <li>Internal link architecture deepening on rooms, dining, experiences pages</li>
+      </ul>
+    </div>
+    <div class="roadmap-card ai">
+      <div class="roadmap-icon">◇</div>
+      <h4>AI Visibility &amp; GEO</h4>
+      <ul>
+        <li>Capitalise on May visibility surges — expand prompt sets for AUP (52%), SFP (45%), SMP (64%)</li>
+        <li>Structured Q&amp;A and citable content formatted for generative extraction across all brands</li>
+        <li>OTA listicle &amp; comparison prompt targeting in ChatGPT, Perplexity, Gemini</li>
+        <li>Reddit &amp; community presence signals — focused on Hotel June and Shelborne comp sets</li>
+      </ul>
+    </div>
+    <div class="roadmap-card rev">
+      <div class="roadmap-icon">◈</div>
+      <h4>Revenue Recovery Levers</h4>
+      <ul>
+        <li>Namastay booking-engine conversion path refinements across Proper portfolio</li>
+        <li>Metasearch &amp; AI/LLM custom channel groups in GTM — clean attribution going forward</li>
+        <li>First-party UTM cookie persistence fix for cross-domain Namastay widget sessions</li>
+        <li>Content gap analysis — high-intent, low-competition queries by property for June planning</li>
+      </ul>
+    </div>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-brand">SR Digi</div>
+  <div>Monthly Organic Revenue &amp; AI Visibility Report · <strong>May 2026</strong></div>
+  <div style="margin-top:6px">Data sources: Google Analytics 4 · Peec.ai · GTM</div>
+</footer>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('open')">
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<script>
+/* ========== DATA ========== */
+const properties = [
+  {
+    id:'shelborne', brand:'shelborne', brandName:'Shelborne', city:'Miami Beach, FL',
+    name:'The Shelborne',
+    mom:{
+      all:    {s:92742, u:77564, p:306, r:479860.40, sd:-4.97,  ud:-2.42, pd:8.51,  rd:-20.81},
+      org:    {s:9332,  u:6590,  p:64,  r:93767.00,  sd:-13.58, ud:-7.83, pd:0,     rd:-40.29},
+      allBase:{s:97595, u:79484, p:282, r:605983.05},
+      orgBase:{s:10798, u:7150,  p:64,  r:157050.00}
+    },
+    yoy:{
+      all:    {s:92742, u:77564, p:306, r:479860.40, sd:52.44,  ud:40.31,  pd:112.5,  rd:221.33},
+      org:    {s:9332,  u:6590,  p:64,  r:93767.00,  sd:10.88,  ud:14.17,  pd:106.45, rd:142.16},
+      allBase:{s:60839, u:55281, p:144, r:149335.83},
+      orgBase:{s:8416,  u:5772,  p:31,  r:38721.10}
+    },
+    peec:{vis:12, visD:1.9, sov:6, sovD:1.0, pos:3.6, posD:-0.5, sent:75, sentD:null},
+    insight:'The YoY story is exceptional — <strong>organic revenue up +142% and all-channel revenue up +221%</strong> vs May 2025. The property is maturing at pace. MoM organic softened against a very strong April, which is the natural pattern after a breakout month. Purchases held flat MoM (64 vs 64), indicating conversion quality is stable even as sessions recalibrate.'
+  },
+  {
+    id:'proper', brand:'proper', brandName:'Proper', city:'Portfolio · 4 properties',
+    name:'Proper Hotels (Portfolio)',
+    mom:{
+      all:    {s:298280, u:217679, p:1659, r:2382201.38, sd:19.6,  ud:15.72, pd:12.55, rd:11.91},
+      org:    {s:88709,  u:63259,  p:463,  r:688654.38,  sd:9.94,  ud:11.64, pd:-1.91, rd:-10.81},
+      allBase:{s:249403, u:188112, p:1474, r:2128684.28},
+      orgBase:{s:80686,  u:56661,  p:472,  r:772137.77}
+    },
+    yoy:{
+      all:    {s:298280, u:217679, p:1659, r:2382201.38, sd:35.08, ud:41.39, pd:0.12,  rd:39.87},
+      org:    {s:88709,  u:63259,  p:463,  r:688654.38,  sd:-20.75,ud:-0.76, pd:-29.74,rd:-6.34},
+      allBase:{s:220818, u:153951, p:1657, r:1703184.27},
+      orgBase:{s:111932, u:63744,  p:659,  r:735306.43}
+    },
+    peec:null,
+    insight:'The Proper portfolio crossed <strong>$2.38M all-channel revenue in May</strong>, up +11.91% MoM and +39.87% YoY. Organic sessions grew +9.94% MoM and users +11.64% — top-of-funnel is expanding. Revenue softening on the organic layer reflects category-wide AI search shifts; the AI visibility gains across all four sub-properties are the leading counters to watch.'
+  },
+  {
+    id:'aup', brand:'proper', brandName:'Proper', city:'Austin, TX',
+    name:'Austin Proper Hotel',
+    mom:{
+      all:    {s:79739, u:58357, p:632, r:782740.71, sd:7.83, ud:11.59, pd:39.51, rd:1.65},
+      org:    {s:25969, u:18316, p:172, r:225013.53, sd:4.41, ud:8.72,  pd:21.13, rd:-21.31},
+      allBase:{s:73951, u:52296, p:453, r:770043.30},
+      orgBase:{s:24871, u:16847, p:142, r:285950.30}
+    },
+    yoy:{
+      all:    {s:79739, u:58357, p:632, r:782740.71, sd:16.39, ud:15.8,  pd:-0.47, rd:22.83},
+      org:    {s:25969, u:18316, p:172, r:225013.53, sd:-26.9, ud:-17.65,pd:-29.8, rd:-16.13},
+      allBase:{s:68510, u:50395, p:635, r:637235.65},
+      orgBase:{s:35523, u:22242, p:245, r:268282.30}
+    },
+    peec:{vis:52, visD:11.5, sov:53, sovD:13.1, pos:2.05, posD:-0.4, sent:73, sentD:2},
+    insight:'The <strong>AI story at AUP is portfolio-leading this month</strong> — visibility surged +11.5pp to 52% and share of voice jumped +13.1pp to 53%, meaning Austin Proper now dominates over half of tracked AI responses in its competitive set. Organic purchases grew +21.13% MoM and all-channel revenue is up +22.83% YoY. The organic revenue investment-lag effect is expected; the citation momentum being built now will translate into organic revenue recovery in the June–July window.'
+  },
+  {
+    id:'dtlp', brand:'proper', brandName:'Proper', city:'Downtown Los Angeles, CA',
+    name:'Downtown LA Proper Hotel',
+    mom:{
+      all:    {s:57591, u:43639, p:270, r:351321.96, sd:7.83,  ud:11.59, pd:39.51, rd:1.65},
+      org:    {s:17899, u:13035, p:83,  r:101944.67, sd:9.64,  ud:9.35,  pd:-7.78, rd:13.18},
+      allBase:{s:47657, u:36257, p:240, r:222636.48},
+      orgBase:{s:16325, u:11920, p:90,  r:90070.12}
+    },
+    yoy:{
+      all:    {s:57591, u:43639, p:270, r:351321.96, sd:56.75, ud:60.79, pd:23.85, rd:92.4},
+      org:    {s:17899, u:13035, p:83,  r:101944.67, sd:-5.74, ud:3.17,  pd:0,     rd:30.41},
+      allBase:{s:36740, u:27140, p:218, r:182595.81},
+      orgBase:{s:18989, u:12634, p:83,  r:78174.78}
+    },
+    peec:{vis:30, visD:6.3, sov:43, sovD:4.4, pos:2.7, posD:-1.1, sent:77, sentD:10},
+    insight:'DTLA delivered a strong double — <strong>organic revenue +13.18% MoM</strong> on solid session growth (+9.64%), and a remarkable <strong>+92.4% all-channel revenue YoY</strong>. The AI Sentiment score jumped +10 points to 77 in May, the highest gain in the portfolio, signalling that qualitative perception in generative answers is shifting decisively in DTLA Proper\'s favour.'
+  },
+  {
+    id:'smp', brand:'proper', brandName:'Proper', city:'Santa Monica, CA',
+    name:'Santa Monica Proper Hotel',
+    mom:{
+      all:    {s:84416, u:61573, p:462, r:1038446.29, sd:18.48, ud:15.6,  pd:-12.33,rd:16.41},
+      org:    {s:26523, u:19548, p:132, r:316470.75,  sd:21.14, ud:23.89, pd:-15.92,rd:-4.18},
+      allBase:{s:71250, u:53263, p:527, r:892089.70},
+      orgBase:{s:21894, u:15778, p:157, r:330274.70}
+    },
+    yoy:{
+      all:    {s:84416, u:61573, p:462, r:1038446.29, sd:37.27, ud:49.05, pd:-19.65,rd:42.54},
+      org:    {s:26523, u:19548, p:132, r:316470.75,  sd:-9.52, ud:9.46,  pd:-34.98,rd:7.33},
+      allBase:{s:61496, u:41310, p:575, r:728521.16},
+      orgBase:{s:29315, u:17858, p:203, r:294859.80}
+    },
+    peec:{vis:64, visD:7.2, sov:22, sovD:2.6, pos:2.7, posD:-1.0, sent:74, sentD:-1},
+    insight:'SMP holds the <strong>highest AI visibility in the portfolio at 64%</strong> — and grew it another +7.2pp in May. Organic sessions surged +21.14% and users +23.89% MoM, both strong top-of-funnel signals. All-channel revenue crossed <strong>$1M in May (+42.54% YoY)</strong>. The organic revenue YoY is now positive (+7.33%), confirming the CRO and content work is compounding into revenue outcomes.'
+  },
+  {
+    id:'sfp', brand:'proper', brandName:'Proper', city:'San Francisco, CA',
+    name:'San Francisco Proper Hotel',
+    mom:{
+      all:    {s:37194, u:29545, p:268, r:190456.62, sd:28.83, ud:30.49, pd:6.77, rd:-1.33},
+      org:    {s:10461, u:7883,  p:75,  r:44820.55,  sd:12.73, ud:15.81, pd:-9.64,rd:-31.93},
+      allBase:{s:28870, u:22641, p:251, r:193030.80},
+      orgBase:{s:9280,  u:6807,  p:83,  r:65842.65}
+    },
+    yoy:{
+      all:    {s:37194, u:29545, p:268, r:190456.62, sd:14.9,  ud:72.89, pd:17.54, rd:23.17},
+      org:    {s:10461, u:7883,  p:75,  r:44820.55,  sd:-49.75,ud:-10.17,pd:-40.94,rd:-52.21},
+      allBase:{s:32371, u:17089, p:228, r:154625.55},
+      orgBase:{s:20816, u:8775,  p:127, r:93783.45}
+    },
+    peec:{vis:45, visD:9.5, sov:50, sovD:8.1, pos:1.7, posD:-0.3, sent:72, sentD:1},
+    insight:'SF Proper\'s AI metrics are exceptional — <strong>visibility +9.5pp to 45%, SOV +8.1pp to 50%, sitting at position #1.7</strong>. This is the second-strongest AI gain in the portfolio this month. Organic sessions and users both grew MoM (+12.73% / +15.81%). All-channel sessions are up +28.83% MoM and revenue +23.17% YoY — the demand signal is strong; organic conversion optimisation is the next lever.'
+  },
+  {
+    id:'hj', brand:'hotel-june', brandName:'Hotel June', city:'Portfolio · 2 properties',
+    name:'Hotel June (Portfolio)',
+    mom:{
+      all:    {s:55665, u:49685, p:773, r:560821.01, sd:18.43, ud:16.93, pd:29.26, rd:43.4},
+      org:    {s:7575,  u:6427,  p:169, r:124290.41, sd:19.8,  ud:21.01, pd:7.64,  rd:7.64},
+      allBase:{s:47001, u:42490, p:598, r:391102.16},
+      orgBase:{s:6323,  u:5311,  p:157, r:110095.63}
+    },
+    yoy:{
+      all:    {s:55665, u:49685, p:773, r:560821.01, sd:94.8,  ud:145.54,pd:13.01, rd:74.7},
+      org:    {s:7575,  u:6427,  p:169, r:124290.41, sd:-31.24,ud:-9.09, pd:-43.67,rd:-18.91},
+      allBase:{s:28575, u:20235, p:684, r:321028.48},
+      orgBase:{s:11016, u:7070,  p:300, r:153279.85}
+    },
+    peec:null,
+    insight:'Hotel June\'s strongest portfolio month of the year — <strong>all-channel revenue up +43.4% MoM to $560K</strong>, nearly doubling from April. Organic sessions grew +19.8% and users +21.01%, with organic revenue up +7.64% MoM. YoY all-channel revenue is up <strong>+74.7%</strong>, reflecting the brand\'s rapid growth trajectory.'
+  },
+  {
+    id:'hjwl', brand:'hotel-june', brandName:'Hotel June', city:'West LA, CA',
+    name:'Hotel June West LA',
+    mom:{
+      all:    {s:42385, u:37925, p:610, r:427601.34, sd:13.5,  ud:11.35, pd:21.76, rd:36.44},
+      org:    {s:4915,  u:4181,  p:134, r:97146.53,  sd:13.01, ud:16.43, pd:0.75,  rd:6.18},
+      allBase:{s:37342, u:34058, p:501, r:313408.79},
+      orgBase:{s:4349,  u:3591,  p:133, r:91489.63}
+    },
+    yoy:{
+      all:    {s:42385, u:37925, p:610, r:427601.34, sd:89.11, ud:141.33,pd:-0.16, rd:57.78},
+      org:    {s:4915,  u:4181,  p:134, r:97146.53,  sd:-40.45,ud:-19.74,pd:-47.66,rd:-17.91},
+      allBase:{s:22413, u:15715, p:611, r:149335.83},
+      orgBase:{s:8253,  u:5209,  p:256, r:118347.76}
+    },
+    peec:{vis:33, visD:3.2, sov:85, sovD:4.5, pos:2.2, posD:-0.4, sent:73, sentD:3},
+    insight:'HJWL organic sessions grew +13.01% and users +16.43% — strong top-of-funnel momentum. <strong>SOV holds dominant at 85% (+4.5pp)</strong>, the highest in the portfolio, meaning Hotel June West LA owns the generative search surface in its competitive set. All-channel revenue was up a strong +36.44% MoM. Sentiment improved +3 to 73.'
+  },
+  {
+    id:'hjm', brand:'hotel-june', brandName:'Hotel June', city:'Malibu, CA',
+    name:'Hotel June Malibu',
+    mom:{
+      all:    {s:9870, u:8898, p:96, r:88801.95, sd:34.29, ud:32.98, pd:71.43, rd:83.25},
+      org:    {s:2066, u:1856, p:19, r:18333.55, sd:30.26, ud:29.61, pd:72.73, rd:67.15},
+      allBase:{s:7350, u:6691, p:56, r:48460.15},
+      orgBase:{s:1586, u:1432, p:11, r:10968.50}
+    },
+    yoy:{
+      all:    {s:9870, u:8898, p:96, r:88801.95, sd:131.53,ud:191.64,pd:31.51, rd:77.53},
+      org:    {s:2066, u:1856, p:19, r:18333.55, sd:-8.79, ud:13.24, pd:-56.82,rd:-47.52},
+      allBase:{s:4263, u:3051, p:73, r:50020.41},
+      orgBase:{s:2265, u:1639, p:44, r:34932.09}
+    },
+    peec:{vis:64, visD:5.5, sov:49, sovD:2.3, pos:2.2, posD:-0.1, sent:70, sentD:null},
+    insight:'Hotel June Malibu\'s best month on record — <strong>all-channel revenue up +83.25% MoM</strong>, organic revenue +67.15% MoM, and organic purchases nearly doubled (+72.73%). Users grew +191% YoY. AI visibility at <strong>64% (+5.5pp)</strong> ties with SMP for highest in the portfolio. This property is firing on all cylinders.'
+  },
+  {
+    id:'avalon', brand:'avalon', brandName:'Avalon', city:'Portfolio · 2 properties',
+    name:'Avalon Hotel (Portfolio)',
+    mom:{
+      all:    {s:35203, u:27438, p:227, r:233770.98, sd:-3.16, ud:-0.65,pd:-2.16, rd:-20.88},
+      org:    {s:9302,  u:7053,  p:42,  r:54087.36,  sd:19.93, ud:28.12,pd:-26.32,rd:-22.38},
+      allBase:{s:36351, u:27618, p:232, r:295465.56},
+      orgBase:{s:7756,  u:5505,  p:57,  r:69678.96}
+    },
+    yoy:{
+      all:    {s:35203, u:27438, p:227, r:233770.98, sd:35.18, ud:42.55,pd:-16.24,rd:7.49},
+      org:    {s:9302,  u:7053,  p:42,  r:54087.36,  sd:-10.61,ud:2.38, pd:-69.57,rd:-53.68},
+      allBase:{s:26041, u:19248, p:271, r:217484.20},
+      orgBase:{s:10406, u:6889,  p:138, r:116763.75}
+    },
+    peec:null,
+    insight:'Organic sessions grew nearly <strong>+20% MoM (+19.93%)</strong> and users expanded +28.12% — the top of funnel is building well. All-channel revenue is up +7.49% YoY. The sub-property breakdown below tells the fuller story, with APS delivering a standout organic revenue month (+39.94% MoM).'
+  },
+  {
+    id:'abh', brand:'avalon', brandName:'Avalon', city:'Beverly Hills, CA',
+    name:'Avalon Beverly Hills',
+    mom:{
+      all:    {s:11821, u:9238, p:53, r:85285.67,  sd:12.4,  ud:20.4,  pd:-8.62, rd:-21.28},
+      org:    {s:4362,  u:3421, p:14, r:29007.66,  sd:45.5,  ud:50.9,  pd:-26.32,rd:3.88},
+      allBase:{s:10517, u:7673, p:58, r:108342.42},
+      orgBase:{s:2998,  u:2267, p:19, r:27923.46}
+    },
+    yoy:{
+      all:    {s:11821, u:9238, p:53, r:85285.67,  sd:49.41, ud:75.26, pd:-61.31,rd:-20.11},
+      org:    {s:4362,  u:3421, p:14, r:29007.66,  sd:-2.7,  ud:18.74, pd:-82.5, rd:-51.86},
+      allBase:{s:7912,  u:5271, p:137,r:106752.35},
+      orgBase:{s:4483,  u:2881, p:80, r:60259.15}
+    },
+    peec:{vis:4, visD:0.5, sov:8, sovD:1.4, pos:4.3, posD:-1.2, sent:64, sentD:null},
+    insight:'The ABH organic session story is the highlight — <strong>sessions surged +45.5% MoM and users +50.9%</strong>. Organic revenue held positive MoM (+3.88%) despite purchase pressure, reflecting higher-intent, higher-value traffic entering the funnel. All-channel sessions +49.41% YoY confirms the brand is attracting significantly broader awareness. AI position improved +1.2 to #4.3 — directionally positive for a property early in its LLM visibility journey.'
+  },
+  {
+    id:'aps', brand:'avalon', brandName:'Avalon', city:'Palm Springs, CA',
+    name:'Avalon Palm Springs',
+    mom:{
+      all:    {s:21526, u:16677, p:168, r:137905.82, sd:-12.5, ud:-12.83,pd:7.69, rd:-16.58},
+      org:    {s:4919,  u:3536,  p:28,  r:25079.70,  sd:9.29,  ud:9.98,  pd:-26.32,rd:39.94},
+      allBase:{s:24602, u:19131, p:156, r:165305.30},
+      orgBase:{s:4501,  u:3215,  p:38,  r:41755.50}
+    },
+    yoy:{
+      all:    {s:21526, u:16677, p:168, r:137905.82, sd:25.38, ud:27.15, pd:27.27, rd:26.54},
+      org:    {s:4919,  u:3536,  p:28,  r:25079.70,  sd:-14.75,ud:-9.54, pd:-50.88,rd:-54.71},
+      allBase:{s:17169, u:13116, p:132, r:108985.85},
+      orgBase:{s:5770,  u:3909,  p:57,  r:55376.60}
+    },
+    peec:{vis:4, visD:1.2, sov:12, sovD:4.5, pos:2.8, posD:-0.9, sent:63, sentD:null},
+    insight:'APS delivered a positive organic revenue month — <strong>revenue up +39.94% MoM</strong> on organic session growth of +9.29% and user growth of +9.98%. SOV gained +4.5pp to 12% and visibility climbed +1.2pp — the AI presence is building. All-channel revenue is up +26.54% YoY, confirming the Palm Springs market is responding well to the brand\'s growing footprint.'
+  }
+];
+
+/* ========== HELPERS ========== */
+const fmt = n => n.toLocaleString('en-US');
+const fmtMoney = n => '$' + Math.round(n).toLocaleString('en-US');
+const fmtDelta = d => (d === null || d === undefined) ? '—' : (d >= 0 ? '+' : '') + d.toFixed(2).replace(/\.?0+$/,'') + '%';
+const deltaClass = d => (d === null || d === undefined || d === 0) ? 'flat' : (d > 0 ? 'up' : 'down');
+const deltaArrow = d => (d === null || d === undefined || d === 0) ? '●' : (d > 0 ? '▲' : '▼');
+
+/* ========== RENDER ========== */
+function renderRow(segLabel, segClass, curr){
+  return `<tr>
+    <td><span class="seg-badge ${segClass}">${segLabel}</span></td>
+    <td><div class="cell-main">${fmt(curr.s)}</div><div class="cell-delta ${deltaClass(curr.sd)}">${deltaArrow(curr.sd)} ${fmtDelta(curr.sd)}</div></td>
+    <td><div class="cell-main">${fmt(curr.u)}</div><div class="cell-delta ${deltaClass(curr.ud)}">${deltaArrow(curr.ud)} ${fmtDelta(curr.ud)}</div></td>
+    <td><div class="cell-main">${fmt(curr.p)}</div><div class="cell-delta ${deltaClass(curr.pd)}">${deltaArrow(curr.pd)} ${fmtDelta(curr.pd)}</div></td>
+    <td><div class="cell-main">${fmtMoney(curr.r)}</div><div class="cell-delta ${deltaClass(curr.rd)}">${deltaArrow(curr.rd)} ${fmtDelta(curr.rd)}</div></td>
+  </tr>`;
+}
+function renderBase(label, segClass, base){
+  return `<tr style="background:#fafbfd">
+    <td><span class="seg-badge ${segClass}" style="opacity:.6">${label}</span></td>
+    <td><div class="cell-main" style="font-weight:400;color:#64748b">${fmt(base.s)}</div></td>
+    <td><div class="cell-main" style="font-weight:400;color:#64748b">${fmt(base.u)}</div></td>
+    <td><div class="cell-main" style="font-weight:400;color:#64748b">${fmt(base.p)}</div></td>
+    <td><div class="cell-main" style="font-weight:400;color:#64748b">${fmtMoney(base.r)}</div></td>
+  </tr>`;
+}
+function tablePanel(data, baseLabel){
+  return `<table class="cmp-table">
+    <thead><tr><th>Segment</th><th>Sessions</th><th>Users</th><th>Purchases</th><th>Revenue</th></tr></thead>
+    <tbody>
+      ${renderRow('All Users','all',data.all)}
+      ${renderRow('Organic','organic',data.org)}
+      ${renderBase(baseLabel+' · All','all',data.allBase)}
+      ${renderBase(baseLabel+' · Organic','organic',data.orgBase)}
+    </tbody>
+  </table>`;
+}
+function screenshotBlock(id, period, src, source='GA4'){
+  return `<div class="screenshot" onclick="openLightbox('${src}')">
+    <div class="screenshot-label">${source} · ${period}</div>
+    <img src="${src}" alt="${id} ${period}" loading="lazy">
+  </div>`;
+}
+function aiTile(label, value, delta, unit=''){
+  const cls = deltaClass(delta);
+  const arr = deltaArrow(delta);
+  const dl = delta === null ? '—' : (delta >= 0 ? '+' : '') + delta + (unit==='%' ? 'pp' : '');
+  return `<div class="ai-tile">
+    <div class="ai-tile-label">${label}</div>
+    <div class="ai-tile-value">${value}</div>
+    <div class="ai-tile-delta ${cls}">${arr} ${dl}</div>
+  </div>`;
+}
+
+function propCard(p, idx){
+  const peecPanel = p.peec ? `
+    <div class="ai-tile-grid">
+      ${aiTile('Visibility', p.peec.vis+'%', p.peec.visD,'%')}
+      ${aiTile('Share of Voice', p.peec.sov+'%', p.peec.sovD,'%')}
+      ${aiTile('Position', '#'+p.peec.pos, p.peec.posD)}
+      ${aiTile('Sentiment', p.peec.sent, p.peec.sentD)}
+    </div>
+    ${screenshotBlock(p.id,'May 2026 · Visibility Overview','images/'+p.id+'_peec.png','Peec.ai')}
+  ` : `<div style="padding:20px;background:#fafbfd;border-radius:12px;color:var(--muted);font-size:14px;text-align:center;border:1px dashed var(--line)">AI visibility tracked at individual property level for this brand. See sub-property cards for detailed Peec.ai metrics.</div>`;
+
+  return `<div class="prop-card" data-brand="${p.brand}" data-id="${p.id}">
+    <div class="prop-header" onclick="toggleCard(this)">
+      <div class="prop-header-left">
+        <img class="prop-logo" src="images/${p.id}_logo.png" alt="${p.name}" loading="lazy">
+        <div class="prop-name">
+          <h2>${p.name}</h2>
+          <div class="prop-sub">${p.brandName} · ${p.city}</div>
+        </div>
+      </div>
+      <div class="prop-header-right">
+        <div class="mini-stat">
+          <div class="mini-stat-val">${fmtMoney(p.mom.org.r)}</div>
+          <div class="mini-stat-label">Organic Rev</div>
+        </div>
+        <div class="mini-stat">
+          <div class="mini-stat-val" style="color:${p.mom.org.rd>=0?'var(--good)':'var(--bad)'}">${fmtDelta(p.mom.org.rd)}</div>
+          <div class="mini-stat-label">MoM</div>
+        </div>
+        <div class="chevron">▼</div>
+      </div>
+    </div>
+    <div class="prop-body">
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab(this,'mom-${idx}')">Revenue · MoM</button>
+        <button class="tab" onclick="switchTab(this,'yoy-${idx}')">Revenue · YoY</button>
+        <button class="tab" onclick="switchTab(this,'ai-${idx}')">AI Visibility</button>
+      </div>
+      <div class="tab-panel active" id="mom-${idx}">
+        <div class="two-col">
+          <div>
+            ${tablePanel(p.mom,'April 2026')}
+            <div class="chart-block" style="margin-top:20px">
+              <div class="chart-block-title">April vs May 2026 · Organic</div>
+              <canvas id="mom-chart-${idx}" height="200"></canvas>
+            </div>
+          </div>
+          <div>${screenshotBlock(p.id,'Traffic Acquisition · May vs April 2026','images/'+p.id+'_mom.png','GA4')}</div>
+        </div>
+      </div>
+      <div class="tab-panel" id="yoy-${idx}">
+        <div class="two-col">
+          <div>
+            ${tablePanel(p.yoy,'May 2025')}
+            <div class="chart-block" style="margin-top:20px">
+              <div class="chart-block-title">May 2025 vs May 2026 · Organic</div>
+              <canvas id="yoy-chart-${idx}" height="200"></canvas>
+            </div>
+          </div>
+          <div>${screenshotBlock(p.id,'Traffic Acquisition · May 2026 vs May 2025','images/'+p.id+'_yoy.png','GA4')}</div>
+        </div>
+      </div>
+      <div class="tab-panel" id="ai-${idx}">${peecPanel}</div>
+      <div class="insight" style="margin:0 32px 32px">
+        <span class="insight-label">Insight</span>
+        ${p.insight}
+      </div>
+    </div>
+  </div>`;
+}
+
+document.getElementById('propertyGrid').innerHTML = properties.map((p,i) => propCard(p,i)).join('');
+
+/* ========== INTERACTIONS ========== */
+function toggleCard(header){
+  const wasOpen = header.classList.contains('open');
+  header.classList.toggle('open');
+  if(!wasOpen){
+    const idx = properties.findIndex(p => p.id === header.closest('.prop-card').dataset.id);
+    renderMiniCharts(idx);
+  }
+}
+function switchTab(btn, panelId){
+  btn.parentElement.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.closest('.prop-body').querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(panelId).classList.add('active');
+}
+function openLightbox(src){
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightbox').classList.add('open');
+}
+
+/* ========== FILTER ========== */
+document.getElementById('filterBar').addEventListener('click', e => {
+  const btn = e.target.closest('.filter-pill');
+  if(!btn) return;
+  document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const f = btn.dataset.filter;
+  document.querySelectorAll('.prop-card').forEach(c => c.classList.toggle('hidden', f!=='all' && c.dataset.brand!==f));
+});
+
+/* ========== CHARTS ========== */
+Chart.defaults.font.family = "'Outfit', sans-serif";
+Chart.defaults.font.size = 12;
+Chart.defaults.color = '#64748b';
+
+const leafProperties = properties.filter(p => !['proper','hj','avalon'].includes(p.id));
+
+new Chart(document.getElementById('portfolioChart'),{
+  type:'bar',
+  data:{
+    labels: leafProperties.map(p => p.name.replace(' Hotel','').replace(' (Portfolio)','')),
+    datasets:[
+      {label:'April 2026 Organic Revenue', data:leafProperties.map(p=>p.mom.orgBase.r), backgroundColor:'#cbd5e1', borderRadius:6, borderSkipped:false},
+      {label:'May 2026 Organic Revenue',   data:leafProperties.map(p=>p.mom.org.r),
+        backgroundColor:leafProperties.map(p=>({'shelborne':'#0891b2','proper':'#7c3aed','hotel-june':'#2e5bff','avalon':'#dc2626'}[p.brand])),
+        borderRadius:6, borderSkipped:false}
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'top',align:'end',labels:{boxWidth:12,boxHeight:12,padding:16}},
+      tooltip:{callbacks:{label:ctx=>`${ctx.dataset.label}: $${ctx.raw.toLocaleString()}`}}
+    },
+    scales:{
+      y:{beginAtZero:true, grid:{color:'#f1f5f9'}, ticks:{callback:v=>'$'+(v/1000)+'K'}},
+      x:{grid:{display:false}, ticks:{maxRotation:45,minRotation:30,font:{size:11}}}
+    }
+  }
+});
+
+const tracked = properties.filter(p => p.peec !== null);
+new Chart(document.getElementById('aiChart'),{
+  type:'bar',
+  data:{
+    labels: tracked.map(p => p.name.replace(' Hotel','')),
+    datasets:[{
+      label:'AI Visibility %',
+      data: tracked.map(p=>p.peec.vis),
+      backgroundColor: tracked.map(p=>({'shelborne':'#22d3ee','proper':'#a78bfa','hotel-june':'#60a5fa','avalon':'#f87171'}[p.brand])),
+      borderRadius:8, borderSkipped:false
+    }]
+  },
+  options:{
+    indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:ctx=>{const p=tracked[ctx.dataIndex];const d=p.peec.visD;return `Visibility: ${ctx.raw}% (${d>=0?'+':''}${d}pp MoM)`;}}}
+    },
+    scales:{
+      x:{beginAtZero:true,max:100,grid:{color:'rgba(255,255,255,.08)'},ticks:{color:'rgba(255,255,255,.6)',callback:v=>v+'%'}},
+      y:{grid:{display:false},ticks:{color:'rgba(255,255,255,.85)',font:{size:12}}}
+    }
+  }
+});
+
+const renderedCharts = new Set();
+function renderMiniCharts(idx){
+  if(renderedCharts.has(idx)) return;
+  renderedCharts.add(idx);
+  const p = properties[idx];
+  const shared = {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{legend:{position:'top',align:'end',labels:{boxWidth:10,boxHeight:10,padding:12,font:{size:11}}}},
+    scales:{y:{type:'logarithmic',grid:{color:'#f1f5f9'},ticks:{font:{size:10}}},x:{grid:{display:false},ticks:{font:{size:11}}}}
+  };
+  new Chart(document.getElementById('mom-chart-'+idx),{type:'bar',data:{
+    labels:['Sessions','Users','Purchases','Revenue ($)'],
+    datasets:[
+      {label:'April 2026',data:[p.mom.orgBase.s,p.mom.orgBase.u,p.mom.orgBase.p,p.mom.orgBase.r],backgroundColor:'#cbd5e1',borderRadius:4},
+      {label:'May 2026',  data:[p.mom.org.s,   p.mom.org.u,   p.mom.org.p,   p.mom.org.r],   backgroundColor:'#0891b2',borderRadius:4}
+    ]},options:shared
+  });
+  new Chart(document.getElementById('yoy-chart-'+idx),{type:'bar',data:{
+    labels:['Sessions','Users','Purchases','Revenue ($)'],
+    datasets:[
+      {label:'May 2025',data:[p.yoy.orgBase.s,p.yoy.orgBase.u,p.yoy.orgBase.p,p.yoy.orgBase.r],backgroundColor:'#cbd5e1',borderRadius:4},
+      {label:'May 2026',data:[p.yoy.org.s,   p.yoy.org.u,   p.yoy.org.p,   p.yoy.org.r],   backgroundColor:'#7c3aed',borderRadius:4}
+    ]},options:shared
+  });
+}
+</script>
+</body>
+</html>
